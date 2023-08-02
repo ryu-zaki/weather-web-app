@@ -6,7 +6,8 @@
   "scripts": {
     "build": "npx tailwindcss -i ./public/style.css -o ./public/main/main.css",
     "watch": "npx tailwindcss -i ./public/style.css -o ./public/main/main.css --watch",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "start": "npm install && node index.js"
   },
   "keywords": [],
   "author": "",

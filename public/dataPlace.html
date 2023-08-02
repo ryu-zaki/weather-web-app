@@ -63,7 +63,6 @@
         city = cityArr.map((item) => {
             return item.charAt(0).toUpperCase() + item.slice(1);
         }).join(' ');
-        console.log(city)
         
 
         const country = document.querySelector('[data-country]');
@@ -109,7 +108,7 @@
             };
 
             const api = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city},${code}&appid=f8871b8504d5869f4faa37788c1163cd&units=metric`);
-            console.log(api.status);
+            
             if (api.status != 200) {
                 modalErr.classList.add('active');
                 removeToLocalCC();
@@ -120,8 +119,6 @@
                 cityEl.style.outlineWidth = '2px';
                 window.location.assign('/home')
             }
-
-            console.log(localStorage);
         }
         
         catch(err) {

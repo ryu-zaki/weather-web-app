@@ -2,7 +2,7 @@
 const loginCon = document.querySelector('.login-con');
 const loginForm = document.querySelector('[data-logForm]');
 const signChecker = localStorage.getItem('signErr');
-console.log(localStorage)
+
 if (signChecker == 'true') {
   loginCon.classList.add('deac');
 };
@@ -35,7 +35,6 @@ async function myChecker() {
     const checker = await fetch('/signup/checker');
     const result = await checker.json();
     const errorCon = document.querySelectorAll('.modal-wrapper > div');
-    console.log(result);
 
     if (result.status == true && result.email == true) {
      conIdentifier('#success');
@@ -53,10 +52,9 @@ async function myChecker() {
       modalCon.classList.add('active');
       modalCon.querySelector(id).classList.remove('hidden');
       modalCon.querySelector(id).classList.add('flex');
-      console.log(modalCon.querySelector(id))
     }
   } catch(err) {
-    console.log(err)
+    console.error(err)
   }
 }
 myChecker();

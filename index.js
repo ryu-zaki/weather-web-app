@@ -8,10 +8,10 @@ const countries = require('./countries');
 const fs = require('fs');
 
 const con = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'kira22',
-    database: 'users'
+    host: 'sql6.freesqldatabase.com',
+    user: 'sql6636938',
+    password: 'sjfSGyYpM1',
+    database: 'sql6636938'
 });;
 
 async function emailTransport(userEmail, userName) {
@@ -45,10 +45,10 @@ async function emailTransport(userEmail, userName) {
 }
 
 
-/* con.connect(err => {
+con.connect(err => {
     if (err) console.log(err)
     console.log('connected!');
-}) */
+})
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -60,7 +60,6 @@ app.get('/', (req, res) => {
 
 
 /* Signup */
-
 let info = [];
 let signCheck = {status: undefined, email:undefined};
 let c = true;
@@ -103,29 +102,13 @@ app.post('/signup', async (req, res, next) => {
       signCheck.email = false;
       throw err;
     };
-    emailTransport(req.body.email, req.body.userName);
+   // emailTransport(req.body.email, req.body.userName);
     console.log('database updated!'); 
     signCheck.status = true;
     signCheck.email = true;
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
     });
   });
-
-  
-  /* const sql = `INSERT INTO personal_info (user_name, email, password) 
-               VALUES ("${req.body.username}", "${req.body.email}", "${req.body.password}")`;
-  con.query(sql, (err, result) => {
-    if (err) {
-      signCheck = {status: false};
-      throw err;
-    };
-    emailTransport(req.body.email);
-    console.log('database updated!'); 
-    signCheck = {status: true};
-  });
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
-  console.log(signCheck) */
-  
 })
 
 app.get('/signup/checker', (req, res) => {
@@ -138,10 +121,10 @@ app.get('/signup/checker', (req, res) => {
 /* Login */
 let data;
 let authChecker;
-app.get('/userlogin', (req, res, next) => {
+app.post('/userlogin', (req, res, next) => {
   const sql = `SELECT user_id FROM personal_info
                WHERE user_name = ? AND password = ?`;
-  con.query(sql, [req.query.username, req.query.password], (err, result) => {
+  con.query(sql, [req.body.username, req.body.password], (err, result) => {
     if (err) throw err;
 
     console.log(result)
@@ -151,7 +134,7 @@ app.get('/userlogin', (req, res, next) => {
     return;
     } 
     data = {
-      'loginfo': req.query,
+      'loginfo': req.body,
        result
     };  
     authChecker = true;
@@ -229,7 +212,6 @@ app.post('/home', (req, res) => {
           if (result[i][origInfo] == reqInfo) {
             dataUpdate[`same_${origInfo}`] = true;
             dataError[origInfo] = reqInfo;
-            console.log(dataUpdate);
           }
         }
       }
@@ -277,6 +259,10 @@ app.post('/logChecker', (req, res) => {
   if (req.body.logout == true) {
     authChecker = false;
   } 
+});
+
+app.get('/errorBack', (req, res) => {
+  res.json({login: authChecker});
 })
 
 app.get('/*', (req, res) => {

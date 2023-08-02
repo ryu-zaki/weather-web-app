@@ -79,7 +79,6 @@ function myDarkTheme() {
     ticksColor = '#000'
     localStorage.setItem('darkmode', false);
   }
-  console.log(ticksColor)
   
 
   function themeChanger(elements, currentColor, futureColor) {
@@ -221,10 +220,6 @@ searchBtn.addEventListener('click', async () => {
 
         });
 
-        
-
-        console.log(value)
-
         value = value.join(' ');
  
         localStorage.setItem('city', value);
@@ -250,7 +245,6 @@ searchBtn.addEventListener('click', async () => {
 
       //validation part of input field
       if (!city || (/london( city)?/i.test(city) && /philippines/i.test(country))) {
-      console.log('error');
       loadCon.classList.add('hide');
       errorMess.classList.add('active');
       chartMess.classList.add('active');
@@ -266,7 +260,6 @@ searchBtn.addEventListener('click', async () => {
 
       const api = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city},${code}&appid=f8871b8504d5869f4faa37788c1163cd&units=metric`);
       const result = await api.json();
-      console.log(result)
       const windSpeed = document.querySelector('[data-wind]');
       const humidityEl = document.querySelector('[data-hum]');
       const feelsLike = document.querySelectorAll('[data-temp]');
@@ -384,7 +377,7 @@ function success(position) {
 
 function error(err) {
   if (err) throw err;
-  console.log('map builed')
+ 
 }
 
 
@@ -425,8 +418,6 @@ function renderCalendar() {
     daysEl[i].classList.add('inactive')
   }
 
-
-  //console.log(date.getDate())
 }
 renderCalendar();
 btns.forEach(btn => {
@@ -495,7 +486,6 @@ async function apiPersonalInfo() {
     }
   })
 
-  console.log(result1, result2);
 }
 apiPersonalInfo();
 
@@ -601,7 +591,6 @@ function updateFunc(e) {
 }
 
 let errorData = {};
-console.log(localStorage)
 async function signSaved() {
   try {
     const signApi = await fetch('/updateData');
@@ -609,7 +598,6 @@ async function signSaved() {
 
 
     myErrorSaved();
-    console.log(data);
     const localSaved = (localStorage.getItem('saved') == 'true');
 
     function errorDisplayer(errMess, input) {
@@ -651,8 +639,7 @@ async function signSaved() {
         if (errorData.email) {
           emailInput.value = errorData.email;
         }
-        
-        console.log(errorData)
+      
       }
 
       catch (err) {
@@ -727,7 +714,7 @@ logoutBtn.addEventListener('click', () => {
 
   if (dataInfo.logout == true) {
     // Redirect to a new page
-   window.location.replace("http://localhost:3500/");
+   window.location.replace("/");
    localStorage.setItem('darkmode', false);
   }
 })
