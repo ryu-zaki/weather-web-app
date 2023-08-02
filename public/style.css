@@ -1,0 +1,1107 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --gapCal: 2.7em;
+  --headWidth: 20em;
+  --mainHeight: 67em;
+}
+
+body > * {
+  transition: color .5s;
+}
+
+body::before {
+  content: '';
+  background-color: #222;
+  position: absolute;
+  top: 100vh;
+  left: 0;
+  transform: scale(0);
+  
+  width: 5em;
+  height: 5em;
+  border-radius: 50%;
+  transition: all 1.6s;
+}
+
+body.active::before {
+  transform: scale(45);
+  opacity: 1; 
+}
+
+.containerMenu {
+    display: inline-block;
+    cursor: pointer;
+    --barColor: #112C4E;
+  }
+  
+  .bar1, .bar2, .bar3 {
+    width: 35px;
+    height: 5px;
+    background-color: var(--barColor);
+    margin: 6px 0;
+    transition: 0.4s;
+  }
+
+  .containerMenu.active {
+    --barColor: #bbb;
+  }
+  
+  .change .bar1 {
+    transform: translate(0, 11px) rotate(-45deg);
+  }
+  
+  .change .bar2 {opacity: 0;}
+  
+  .change .bar3 {
+    transform: translate(0, -11px) rotate(45deg);
+  }
+
+[data-navMenu] {
+  transform: translateX(7em);
+  opacity: 0;
+  transition: all .5s;
+}
+
+[data-navMenu].active {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+[data-navMenu].second {
+  transition-delay: .1s;
+}
+
+body [data-navMenu].dark {
+  background-color: #333;
+}
+
+@media only screen and (min-width: 768px) {
+  [data-navMenu] {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.searchBar {
+  outline: none;
+  background-color: #fcfcfc;
+}
+
+.searchBar.dark {
+  background-color: transparent;
+  outline: .8px solid #2F69FE;
+}
+
+.searchBar:focus {
+  border: 1.5px solid #2F69FE;
+}
+
+.grid-section {
+  display: grid;
+  grid-template-columns: auto;
+  gap: 1.5em; 
+}
+
+.grid-section > div.box {
+  transition: all .5s;
+  opacity: 1; 
+  border-radius: .5em;
+  background-color: #EAECED;
+  transition: background .5s transform .6s;
+}
+
+.grid-section.dark > div.box {
+  background-color: #333;
+}
+
+.grid-section.deac > div.box {
+ opacity: 0;
+}
+
+.grid-section.deac > div:nth-child(1) {
+  transform: translate(-3em, -3em);
+}
+
+.grid-section.deac > div:nth-child(2) {
+  transform: translate(3em, -3em);
+}
+
+.grid-section.deac > div:nth-child(3) {
+  transform: translate(-3em, 3em);
+}
+
+.grid-section.deac > div:nth-child(4) {
+  transform: translate(3em, 3em);
+}
+
+
+.grid-section.deac > div.lds-facebook {
+  opacity: 1;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-40%);
+}
+
+.grid-section > .lds-facebook.hide {
+  display: none;
+}
+
+@media only screen and (min-width: 768px) {
+  .grid-section {
+    grid-template-columns: repeat(2, auto);
+  }
+
+  body [data-navMenu].dark {
+    background-color: transparent;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .grid-section {
+    grid-template-columns: repeat(2, auto);
+  }
+}
+
+nav[data-navMenu] > a {
+  transition: all .1s;
+}
+
+html {
+  overflow-x: hidden;
+}
+
+
+body .chartBox {
+  /* border: 2px solid #222; */
+  position: relative;
+  width: 100%;
+  height: 15em;
+}
+
+body .chartBox > canvas {
+  height: 100%;
+  width: 100%;
+} 
+
+body .chartBox > [data-chart-mess] {
+  transform: translate(-50%, -70%);
+
+  opacity: 0;
+}
+
+body .chartBox > [data-chart-mess].active {
+  opacity: 1;
+}
+
+body .rsCon > div {
+  border: 1px solid #8CB2FB;
+}
+
+body .current-temp {
+  border-bottom: 1px solid #bbb;
+}
+
+body [data-weather-stats] {
+  text-transform: capitalize;
+}
+
+/* Loading Animation */
+.lds-facebook {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+.lds-facebook div {
+  display: inline-block;
+  position: absolute;
+  left: 8px;
+  width: 16px;
+  background: #112C4E;
+  animation: lds-facebook 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+}
+.lds-facebook div:nth-child(1) {
+  left: 8px;
+  animation-delay: -0.24s;
+}
+.lds-facebook div:nth-child(2) {
+  left: 32px;
+  animation-delay: -0.12s;
+}
+.lds-facebook div:nth-child(3) {
+  left: 56px;
+  animation-delay: 0;
+}
+@keyframes lds-facebook {
+  0% {
+    top: 8px;
+    height: 64px;
+  }
+  50%, 100% {
+    top: 24px;
+    height: 32px;
+  }
+}
+
+/* Error Animation */
+
+.wrapper {
+  position: absolute;
+  top: -3em;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: all .6s;
+  opacity: 0;
+}
+
+.wrapper.active {
+  opacity: 1;
+}
+
+.charac {
+  width: 8em;
+  height: 10em;
+  transition: all .6s;
+  background-color: white;
+  border: 2px solid #112C4E;
+  border-top-right-radius: 1em;
+  border-top-left-radius: 1em;
+  border-bottom-left-radius: 30%;
+  border-bottom-right-radius: 30%;
+  border-bottom-color: white;
+  position: relative;
+}
+
+.charac::before {
+  content: '';
+  position: absolute;
+  bottom: -1em;
+  width: 10em;
+  height: 10em;
+  border-radius: 50%;
+  background-color: #112C4E;
+  z-index: -1;
+
+}
+
+.charac .eyes {
+  display: flex;
+  gap: 2.5em;
+}
+
+.charac .eyes > div {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #112C4E;
+  animation: blink 2s infinite;
+}
+
+@keyframes blink {
+
+  0% {
+    transform: scaleY(.3);
+  }
+
+  10% {
+    transform:  scaleY(1);
+  }
+
+  30% {
+    transform: scaleY(1);
+  }
+
+  50% {
+    transform:  scaleY(1);
+  
+  }
+
+  60% {
+    transform:  scaleY(1);
+  
+  }
+
+  100% {
+    transform: scaleY(1);
+
+  }
+  
+}
+
+.charac .blush > div {
+  width: 1.4em;
+  height: 3px;
+  background-color: pink;
+}
+
+.charac .mouth {
+  background-color: #112C4E;
+  width: 2em;
+  height: 2px;
+  /* transform: rotate(-5deg); */
+  margin-top: .3em;
+}
+
+body [data-container] {
+  opacity: 0;
+  transform: translateX(40em);
+  transition: all 1s;
+  z-index: 1;
+}
+
+body [data-container].active {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+
+body #map {
+  width: 100%;
+  height: 35em;
+  border: 2px solid #112C4E;
+  border-radius: .5em;
+}
+
+@media only screen and (min-width: 768px) {
+
+  :root {
+    --mainHeight: 60em;
+  }
+
+  body #map {
+    height: 26em;
+  }
+}
+
+
+@media only screen and (min-width: 1024px) {
+
+  :root {
+    --mainHeight: 62em;
+  }
+
+  body .weath-stats {
+    font-size: 1em;
+  }
+
+}
+
+
+@media only screen and (min-width: 1280px) {
+  body #map {
+    height: 30em;
+  }
+
+  body::before {
+    transition: all 1.2s;
+  }
+}
+
+body .Calendar header div span {
+  border-radius: 50%;
+  transition: all .4s;
+}
+
+body .Calendar header div span:active {
+  background-color: #bbb;
+}
+
+body .Calendar .days-list,
+body .Calendar .weeks-list {
+ display: grid;
+ row-gap: 1.4em;
+ margin-top: 1em;
+ justify-content:center;
+ align-content: center;
+ grid-template-columns: repeat(7, auto);
+
+}
+
+body .Calendar .days-list > li,
+body .Calendar .weeks-list > li {
+ width: var(--gapCal);
+ text-align: center;
+}
+
+body .Calendar .days-list > li {
+  z-index: 1;
+  position: relative;
+  cursor: pointer;
+  animation: days .5s forwards;
+  opacity: 0;
+  transform: translateY(2em);
+}
+
+body .Calendar .days-list.dark > li {
+  color: #bbb;
+} 
+
+@keyframes days {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+body .Calendar .days-list > li::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 2.3em;
+  height: 2.3em;
+  border-radius: 50%;
+}
+
+body .Calendar .days-list > li:hover::before {
+  background-color: #eee;
+}
+
+body .Calendar .days-list > li.active {
+  color: #fff;
+}
+
+body .Calendar .days-list > li.inactive::before {
+  background-color: #ddd;
+}
+
+body .Calendar .days-list > li.inactive {
+  color: #888;
+}
+
+body .Calendar .days-list > li.active::before {
+  background-color: #2F69FE;
+}
+
+body [data-container].Calendar {
+  top: 20%;
+  align-self: center;
+}
+
+body .Calendar header {
+  width: var(--headWidth);
+  margin-inline: auto;
+}
+
+body .main-wrapper {
+  min-height: var(--mainHeight);
+  background-color: white;
+  transition: background .4s;
+  border-radius: 5px;
+}
+
+body .main-wrapper.dark {
+  background-color: transparent;
+  outline: 1px solid #555;
+}
+
+@media only screen and (min-width: 550px) {
+  :root {
+    --gapCal: 4em;
+    --headWidth: 26em;
+  }
+
+}
+
+@media only screen and (min-width: 768px) {
+  body [data-container].Calendar {
+    top: 15%;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  :root {
+    --gapCal: 3em;
+    --headWidth: 22em;
+  }
+
+  body [data-container].Calendar {
+    top: 20%;
+  }
+
+}
+
+@media only screen and (min-width: 1280px) {
+  body [data-container].Calendar {
+    top: 15%;
+  }
+
+  :root {
+    --gapCal: 4em;
+    --headWidth: 26em;
+  }
+
+}
+
+body .main-infoSec {
+  background-color: #112C4E;
+  transition: all 1.4s;
+}
+
+body .main-infoSec.dark {
+  background-color: transparent;
+}
+
+
+
+/* Login Page */ 
+body .input-field {
+  --inputFieldHeight: 30em;
+  position: relative;
+  height: var(--inputFieldHeight);
+}
+
+body .input-field > div {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+body .input-field form > div.box {
+  position: relative;
+  width: 100%;
+  height: 2.5em;
+ /*  border: 1px solid #222; */
+}
+
+body .input-field form > div.box > * {
+  position: absolute;
+}
+
+body .input-field form > div.box > input {
+  inset: 0;
+  background-color: transparent;
+  padding: .4em;
+  padding-inline: .6em;
+  border: 0;
+  z-index: 5;
+  outline:0;
+  color: #fff;
+}
+
+body .input-field form > div.box > i {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  inset: 0;
+  background-color: #112C4E;
+  border-radius: 5px;
+  z-index: 1;
+  transform-origin: bottom;
+  transform: scaleY(.05);
+  transition: all .5s;
+}
+
+body .input-field form > div.box > label {
+  top: .6em;
+  left: .4em;
+  color: #112C4E;
+  z-index: 4;
+  transition: all .5s;
+}
+
+
+body .input-field form > button > span {
+  transform: scale(.6);
+
+}
+
+body .input-field form > div.box > input:focus ~ label ~ i,
+body .input-field form > div.box > input:valid ~ label ~ i {
+  transform: scaleY(1);
+}
+
+body .input-field form > div.box > input:focus ~ label,
+body .input-field form > div.box > input:valid ~ label {
+  transform: translateY(-2.7em);
+  font-size: .8em;
+  color: #666;
+}
+
+@media only screen and (min-width: 620px) {
+  body .image-con {
+    --imgWidthCon: 20em;
+   /*  background-image: url('file:///C:/Users/regine_agas/Desktop/projects/Data_Base/public/login-img.jpeg');
+    background-color: gray;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover; */
+    width: var(--imgWidthCon);  
+    position: relative;
+  }  
+
+  body .image-con > img {
+    position: absolute;
+    height: 100%;
+    inset: 0;
+  }
+
+  body .input-field {
+    width: 25em;
+    --inputFieldHeight: 35em;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  body .image-con {
+    --imgWidthCon: 28em;
+  }  
+
+  body .input-field {
+    width: 30em;
+    padding-inline: 1.3em;
+    --inputFieldHeight: 37em;
+  }
+  
+}
+
+/* Login and Signup transitions */
+
+body .login-con {
+  transform: translate(0);
+  opacity: 1;
+  transition: all .5s;
+}
+
+body .login-con.deac {
+  transform: translate(20em, -20em);
+  opacity: 0;
+  z-index: -5;
+}
+
+body .login-con.deac ~ .signup-con {
+  z-index: 5;
+}
+
+/* Settings section */
+
+body > div.firstCon {
+  display: none;
+}
+
+body .settings-con {
+  width: 100%;
+  /* height: 46em; */
+  /* display: none; */
+  background-color: #fff;
+  /* backdrop-filter: blur(.5em); */
+  /* border: 1px solid red; */
+  
+}
+
+body .settings-con.dark {
+  outline: 1px solid #bbb;
+  background-color: #222;
+}
+
+body .settings-con.dark .cancelBtn {
+  background-color: #000;
+  color: #fcfcfc;
+}
+
+
+body .settings-con .header {
+  border-bottom: 1px solid #2F69FE;
+  padding-bottom: 2em;
+  animation: txt .6s forwards;
+  transform: translateX(-8em);
+  opacity: 0;
+}
+
+body .settings-con form > div > h2 {
+  animation: txt .6s .2s forwards;
+  opacity: 0;
+  transform: translateX(-8em);
+}
+
+body .settings-con form > div > div {
+  animation: txt .6s .6s forwards;
+  opacity: 0;
+  transform: translateY(-8em);
+}
+
+@keyframes txt {
+  to {
+    opacity: 1;
+    transform: translate(0);
+  }
+}
+
+body .settings-con input {
+  outline: 1px solid #555;
+  width: 100%;
+  position: relative;
+  border: 0;
+  border-radius: 5px;
+  background-color: transparent;
+  z-index: 1;
+  cursor: auto;
+}
+
+body .settings-con input[readonly] {
+  cursor:not-allowed;
+
+}
+
+body .settings-con .input-wrapper {
+  position: relative;
+}
+
+body .settings-con .input-wrapper > input ~ i.bg-edit {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(47, 106, 254, .2);
+  transform: scaleX(1);
+  transform-origin: left;
+  z-index: -1;
+  transition: all .5s;
+}
+
+body .settings-con .input-wrapper > input[readonly] ~ i.bg-edit {
+  transform: scaleX(0);
+}
+
+body .settings-con .input-wrapper > input ~ i.pass-eye {
+  transform: translateY(-50%);
+}
+
+/* body .settings-con input[readonly]:before {
+  transform: scaleX(0);
+} */
+
+body .settings-con label {
+  color: #222; 
+}
+
+body .settings-con [data-editBtn] {
+  background-color: transparent;
+  padding: .6em;
+  border-radius: 50%;
+  position: relative;
+}
+
+body .settings-con.dark [data-editBtn] {
+  color: #fcfcfc;
+}
+
+
+body .settings-con [data-editBtn].edit {
+  background-color: #ddd;
+}
+
+body .settings-con.dark [data-editBtn].edit {
+  color: #222;
+}
+
+body .settings-con [data-editTooltip] {
+  transform: scale(0);
+  transform-origin: top;
+  transition: all .3s;
+}
+
+body .settings-con [data-editTooltip]::before {
+  content: '';
+  position: absolute;
+  height: 0;
+  width: 0;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-bottom: 15px solid #666;
+  top: -.4em;
+  left: 50%;
+  transform: translateX(-50%);
+} 
+
+body .settings-con [data-editBtn]:hover ~ [data-editTooltip] {
+  transform: scale(1);
+}
+
+
+body .settings-con form div > div > div > .input-label > * {
+  color: gray;
+}
+
+body .settings-con form div > div > div > .input-label > * > input {
+  outline-color: gray;
+}
+
+body .settings-con form div > div > div > .input-label.active > label {
+  color: #222;
+}
+
+body .settings-con.dark form div > div > div > .input-label.active > label {
+  color: #fcfcfc;
+}
+
+body .settings-con form div > div > div > .input-label.active > * > input {
+  outline-color: #222;
+  color: #222;
+}
+
+body .settings-con.dark form div > div > div > .input-label.active > * > input {
+  outline-color: #2F69FE;
+  color: #fcfcfc;
+}
+
+
+/* Darkmode */
+body .darkmodeCon {
+  position: relative;
+  height: 1.75em;
+  width: 3.5em;
+  border-radius: 1em;
+  background-color: #666;
+  padding-inline: .3em;
+  transition: all .3s;
+  transform: scale(.7);
+  cursor: pointer;
+};
+
+
+body .darkmodeCon ~ * {
+  transform: rotate(-50deg);
+  animation: iconRotate .4s forwards;
+}
+
+@keyframes iconRotate {
+  to {
+  transform: rotate(0);
+  }
+}
+
+body .darkmodeCon ~ .erase {
+  display: none;
+} 
+
+body .darkmodeCon .ball{
+  position: absolute;
+  height: 1.2em;
+  width: 1.2em;
+  border-radius: 50%;
+  top: 50%;
+  transform: translateY(-50%);
+  left: .3em;
+  background-color: #fff;
+  transition: all .3s;
+}
+
+body .darkmodeCon.active .ball {
+  left: 2em;
+}
+
+body .darkmodeCon.active {
+  background-color: #112C4E;
+}
+
+@media only screen and (min-width: 540px) {
+
+  :root {
+    --labelFs: 1.3em;
+    --inputFs: 1.1em;
+    --nameHeaderFs: 2em;
+  }
+
+  body .settings-con label {
+    font-size: var(--labelFs);
+  }
+
+  body .settings-con input {
+    font-size: var(--inputFs);
+    padding: .5em;
+  }
+
+  body .settings-con > .header h2 {
+    font-size: var(--nameHeaderFs);
+  }
+}
+
+@media only screen and (min-width: 620px) {
+  :root {
+    --labelFs: 1em;
+    --inputFs: 1em;
+    --nameHeaderFs: 1.8em;
+  }
+
+  body .settings-con input {
+    width: 100%;
+  }
+
+  body .settings-con {
+    margin-top: 6em;
+    margin-bottom: 3em;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+
+  :root {
+    --labelFs: 1.2em;
+    --inputFs: 1.1em;
+    --nameHeaderFs: 2em;
+  }
+
+  body .settings-con .header {
+    border: 0;
+  }
+
+  body .settings-con {
+    margin-block: 4em;
+  }
+
+  
+}
+
+/* Data place */
+
+body > div.address-field  {
+  background-color: #fff;
+  min-height: 30em;
+/*   border: 1px solid ; */
+  border-radius: 1em;
+  animation: dataplace .7s forwards;
+  transform: scale(.3);
+}
+
+@keyframes dataplace {
+  to {
+    transform: scale(1);
+  }
+}
+
+body > div.address-field  input {
+  border: 1px solid #555;
+}
+
+body > div.address-field  input:focus {
+  outline: 2px solid #222;
+}
+
+@media (min-width: 620px) {
+  body > div.address-field  {
+      width: 40em;
+      min-height: 33em;
+  }
+}
+
+body .modal-wrapper {
+  inset: 0;
+  background-color: rgba(0,0,0,0.8);
+  z-index: 99;
+  
+}
+
+body .modal-wrapper > div,
+body .update-modal > div {
+  animation: modal .4s forwards;
+  transform: translateY(-10em);
+}
+
+@keyframes modal {
+  to {
+    transform: translateY(0);
+  }
+}
+
+body .modal-wrapper.active {
+  display: flex;
+}
+
+body .up-btn {
+  background-color: #ddd;
+  color: #888; 
+  cursor: not-allowed;
+}
+
+body .settings-con.dark .up-btn {
+  background-color: #555;
+  color: #222;
+}
+
+body .settings-con form div > div > div > .input-label > p {
+  color: #E2252B;
+}
+
+/* 404 PAGE  */
+.img-bg {
+  background: url('http://localhost:3500/gifPic');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100%;
+}
+
+@media only screen and (min-width: 620px) {
+  .img-bg {
+    width: 100%;
+    min-height: 100vh;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .img-bg {
+    width: 70%;
+    min-height: 80vh;
+  }
+}
+
+/* Scroll Bar */
+
+body {
+  --sbColor: #112C4E;
+  --stColor: #f4f4f4;
+}
+
+body.active {
+  --sbColor: #222;
+}
+
+::-webkit-scrollbar {
+  z-index: 5;
+  background-color: var(--sbColor);
+  transition: background .4s;
+  width: .7em;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--stColor);
+  border-radius: .6em;
+}
+
+
+/* For FireFox  */
+::-moz-scrollbar {
+  z-index: 5;
+  background-color: var(--sbColor);
+  transition: background .4s;
+  width: .7em;
+}
+
+::-moz-scrollbar-thumb {
+  background-color: var(--stColor);
+  border-radius: .6em;
+}
+
+body.active > .update-modal > div{
+   background-color: #222;
+}
+
+body.active > .update-modal > div h1 {
+  color: #f4f4f4;
+}
+
+body.active > .update-modal > div button {
+  background-color: white;
+  color: #222;
+}
+
+body .settings-con.dark [data-username] {
+  color: white;
+}

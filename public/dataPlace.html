@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./main/main.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <title>Your Place</title>
+</head>
+<body class="flex justify-center items-center h-screen">
+    <div class="hidden modal-wrapper fixed h-screen w-full justify-center items-start">
+        <div class="bg-white p-4 text-center rounded-xl flex flex-col gap-2 items-center mt-6 md:p-7 xl:px-16">
+            <h1 class="text-xl font-bold md:text-2xl">There's something wrong.</h1>
+            <p class="text-gray">Please check your city and country properly.</p>
+            <button class="bg-dark text-white py-1 px-6 md:mt-3" data-okBtn>Ok</button>
+        </div>
+    </div>
+    <div class="address-field mx-3 relative flex flex-col justify-between p-7 shadow-2xl sm:px-16">
+
+        <div class="absolute top-5 left-5 flex gap-2">
+            <div class="bg-red w-2 h-2 rounded-full"></div>
+            <div class="bg-yellow w-2 h-2 rounded-full"></div>
+            <div class="bg-green w-2 h-2 rounded-full"></div>
+        </div>
+
+        <h1 class="text-2xl text-center mt-10 font-medium sm:text-4xl w-fit mx-auto">Please enter your  preferred <br> location.</h1>
+        <form method="post" action="/login/preferred" class="flex flex-col gap-9">
+            <div class="flex flex-col gap-3">
+                <label class="text-xl flex items-center gap-2 sm:font-medium" for="city"><span class="material-symbols-outlined">home_work</span>City</label>
+                <input data-city id="city" class="p-3 py-2 sm:py-3 sm:text-lg" placeholder="ex. Caloocan City">
+            </div>
+
+            <div class="flex flex-col gap-3">
+                <label class="text-xl sm:font-medium flex items-center gap-2" for="country"><span class="material-symbols-outlined">flag</span>Country</label>
+                <input data-country id="country" class="p-3 py-2 sm:py-3 sm:text-lg" placeholder="ex. Philippines">
+            </div>
+
+            <a href="#" data-continue class="text-white text-center text-lg cursor-pointer bg-dark p-2 px-7 sm:self-center sm:w-1/2 ">Continue</a>
+        </form>
+    </div>
+<script>
+    const form = document.querySelector('form');
+    const contBtn = document.querySelector('[data-continue]');
+    const modalErr = document.querySelector('.modal-wrapper');
+    const okBtn = document.querySelector('[data-okBtn]');
+    let code;
+
+    okBtn.addEventListener('click', () => {
+        modalErr.classList.remove('active');
+    })
+
+    contBtn.addEventListener('click', myFunction);
+
+    function myFunction() {
+        let city = [];
+        const cityArr = document.querySelector('[data-city]').value.toLowerCase().trim().split(' ');
+        for (let i = 0; i < cityArr.length; i++) {
+            if (cityArr[i] != 'city') {
+                city.push(cityArr[i]);
+            }
+        }
+
+        city = cityArr.map((item) => {
+            return item.charAt(0).toUpperCase() + item.slice(1);
+        }).join(' ');
+        console.log(city)
+        
+
+        const country = document.querySelector('[data-country]');
+        textAPI(
+            city, 
+            country.value.trim()
+        );
+    }
+
+    function addToLocalCC(city, code, country) {
+        localStorage.setItem('city', city);
+        localStorage.setItem('code', code);
+        localStorage.setItem('country', country);
+    }
+
+    function removeToLocalCC() {
+        localStorage.removeItem('city');
+        localStorage.removeItem('country');
+        localStorage.removeItem('code');
+    }
+    
+
+    async function textAPI(city, country) {
+        try {
+            
+            const countries = await fetch('/countries');
+            const result = await countries.json();
+            result.forEach(data => {
+              if (data.name == country) {
+                code = data.code.toLowerCase();
+              }
+            });
+
+            const cityEl = document.querySelector('[data-city]');
+            const countryEl = document.querySelector('[data-country]');
+            modalErr.classList.remove('active');
+            
+            /* If the country is not included in our countries variable */
+            if (!code) {
+                modalErr.classList.add('active');
+                removeToLocalCC();
+                throw 'Invalid Country';
+            };
+
+            const api = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city},${code}&appid=f8871b8504d5869f4faa37788c1163cd&units=metric`);
+            console.log(api.status);
+            if (api.status != 200) {
+                modalErr.classList.add('active');
+                removeToLocalCC();
+                throw 'Invalid city';
+            } else {
+                addToLocalCC(city, code, country);
+                cityEl.style.borderColor = '#555';
+                cityEl.style.outlineWidth = '2px';
+                window.location.assign('/home')
+            }
+
+            console.log(localStorage);
+        }
+        
+        catch(err) {
+            console.error(err)
+            contBtn.href = "#";
+        }
+    }
+</script>
+</body>
+</html>

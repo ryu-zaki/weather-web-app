@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./main/main.css">
+    <title>Login Unavailable</title>
+    <style>
+
+        body {
+            background-color: #EAECED;
+            height: 100vh;
+        }
+
+        .err-con {
+          /* border: 1px solid #222; */
+          background-color: white;
+          height: 14em;
+          animation: box .7s forwards;
+          transform: translateY(-2em);
+          opacity: 0;
+        }
+
+        @keyframes box {
+          to {
+            transform: translateY(0);
+            opacity: 1;
+          }
+        }
+
+    </style>
+</head>
+<body class="flex justify-center items-center px-3">
+  <div class="err-con container relative mx-auto flex rounded-xl justify-center items-center gap-5 flex-col lg:w-3/5 xl:w-2/5">
+        <div class="absolute top-5 left-5 flex gap-2">
+            <div class="bg-red w-2 h-2 rounded-full"></div>
+            <div class="bg-yellow w-2 h-2 rounded-full"></div>
+            <div class="bg-green w-2 h-2 rounded-full"></div>
+        </div>
+        <div class="mt-4">
+            <h1 class="text-2xl text-center font-bold mb-2 sm:text-3xl">You don't have an account</h1>
+            <p class="text-center text-lg sm:text-xl">Try to signup or try to login again.</p>
+        </div>
+       <div class="mt-4 flex gap-3">
+        <a href="/" data-signErr class="text-white shadow-md rounded-lg bg-gray p-4 py-2 sm:text-lg">Signup</a>
+        <a href="/" data-loginErr class="text-white shadow-md rounded-lg bg-gray p-4 py-2 sm:text-lg">Login</a>
+       </div>
+  </div>
+
+  <script>
+    const signErrBtn = document.querySelector('[data-signErr]');
+    const logErrBtn = document.querySelector('[data-loginErr]');
+
+    signErrBtn.addEventListener('click', () => {
+      localStorage.setItem('signErr', true);
+    });
+
+    logErrBtn.addEventListener('click', () => {
+      localStorage.setItem('signErr', false);
+    })
+  </script>
+</body>
+</html>
