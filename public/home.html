@@ -19,6 +19,9 @@
 </head>
 <body class="flex bg-mainBg w-full relative overflow-hidden">
 
+<!--Dark Overlay -->
+<div class="overlay hidden"></div>
+
 <!-- Data Updated Modal -->
 <div class="absolute update-modal inset-0 bg-modalBg z-40 hidden justify-center items-start">  
         <div data-infoFit class="bg-white p-4 flex text-center rounded-xl flex-col gap-2 items-center mt-6 md:p-7 xl:px-16">
@@ -34,7 +37,7 @@
   <header class="flex w-full justify-between p-6 pb-0 md:hidden">
     <div>
         <!-- <i class="fa-solid fa-cloud text-3xl text-primary"></i> -->
-        <img alt="Weather Icon" src="./icons8-night-48.png">
+        <img alt="Weather Icon" src="./imgs/icons8-night-48.png">
         <h2 class="text-primary font-bold text-3xl">Weather App</h2>
     </div>
   
@@ -49,7 +52,7 @@
   <div class="bg-secBg md:p-6 md:w-full md:flex md:bg-trans md:items-end lg:flex-col lg:justify-between lg:items-start lg:px-0 xl:w-6/12">
     <div class="flex md:justify-between md:items-end lg:flex-col lg:items-start lg:gap-16 lg:pl-9 xl:pl-0">
         <div class="hidden md:block">
-            <img alt="Weather Icon" src="./icons8-night-48.png">
+            <img alt="Weather Icon" src="./imgs/icons8-night-48.png">
             <h2 class="text-primary font-bold text-3xl md:text-4xl lg:text-3xl xl:text-4xl">Weather App</h2>
         </div>
         <nav data-navMenu class="nav-con absolute top-28 right-0 flex flex-col pl-6 z-10 justify-center gap-8 w-40 h-52 bg-secBg md:static md:flex-row md:bg-trans md:h-fit lg:flex-col md:w-fit lg:p-0">
@@ -68,18 +71,6 @@
               <span>Calendar</span>
             </a>
         </nav>
-    </div>
-
-    <div data-navMenu class="second absolute z-10 top-80 right-0 flex flex-col pl-6 justify-center gap-5 w-40 h-52 bg-secBg md:static md:flex-row md:bg-trans md:h-fit md:pl-0 lg:flex-col lg:mb-24 lg:ml-5">
-        <p class="text-gray text-sm md:hidden lg:block">System</p>
-        <div data-settings class="text-gray pl-3 cursor-pointer hover:text-primary md:text-lg lg:text-sm">
-            <i class="fa-solid fa-gear"></i>
-            <span>Settings</span>
-        </div>
-        <div data-logoutBtn class="text-gray pl-3 cursor-pointer hover:text-primary md:text-lg lg:text-sm">
-            <i class="fa-solid fa-right-from-bracket"></i>
-            <span>Logout</span>
-        </div>
     </div>
   </div>
 
@@ -241,14 +232,14 @@
   <div class="main-infoSec w-11/12 z-10 text-white p-8 flex flex-col gap-14 md:p-10 lg:p-6 xl:w-6/12 xl:p-9">
     <header class="flex items-center justify-between lg:flex-col lg:items-start lg:gap-2 xl:flex-row xl:items-center">
         <div>
-            <h2 data-username class="text-2xl md:text-3xl lg:text-2xl xl:text-xl"></h2>
-            <span data-spCity class="text-lightText capitalize text-sm"></span><span data-country class="text-lightText capitalize text-sm">Philippines</span>
+            <h2 data-spCity class="text-lightText capitalize text-lg pt-1"></h2>
+            <h2 data-country class="text-lightText capitalize text-sm">Philippines</h2>
         </div>
         <p data-time class="md:text-xl xl:text-sm"></p>
     </header>
     <div class="current-temp pb-7 flex justify-between gap-10 items-end lg:flex-col lg:items-start xl:flex-row xl:items-end">
         <div>
-          <img data-weatherIcon class="w-20 xl:w-16" alt="" src='./icons8-partly-cloudy-day-96.png'>
+          <img data-weatherIcon class="w-20 xl:w-16" alt="" src='./imgs/icons8-partly-cloudy-day-96.png'>
           <h2 data-temp class="text-5xl md:text-6xl lg:text-4xl"></h2>
         </div>
         <h2 data-weather-stats class="w-auto weath-stats pb-3 text-lg md:text-2xl xl:pb-0"></h2>
@@ -260,7 +251,7 @@
         <!-- Sunrise -->
         <div class="flex  rounded-md justify-between items-center bg-catergoryBg p-4 md:gap-7">
             <div class="flex items-center gap-4 lg:items-center md:items-center">
-                <img alt="Sunrise" src="./icons8-sunrise-50.png">
+                <img alt="Sunrise" src="./imgs/icons8-sunrise-50.png">
             <div>
                 <p class="text-lightText text-sm">Sunrise</p>
                 <h3 class="text-xl md:text-lg lg:text-sm">4:20 AM</h3>
@@ -274,7 +265,7 @@
         <!-- Sunset -->
         <div class="flex justify-between items-center rounded-md bg-catergoryBg p-4 md:gap-7">
             <div class="flex items-center gap-4 lg:items-center md:items-center">
-                <img alt="Sunrise" src="./icons8-sunset-50 (1).png">
+                <img alt="Sunrise" src="./imgs/icons8-sunset-50 (1).png">
             <div>
                 <p class="text-lightText text-sm">Sunset</p>
                 <h3 class="text-xl md:text-lg lg:text-sm">5:50 PM</h3>
@@ -289,81 +280,6 @@
   
 </div>
 
-<!-- Settings Section -->
-<div class="settings-con hidden relative flex-col rounded-xl container mx-auto z-10 p-8 sm:p-10 lg:p-16 xl:px-24">
-
-    <div class="absolute top-5 left-5 flex gap-2">
-        <div class="bg-red w-2 h-2 rounded-full"></div>
-        <div class="bg-yellow w-2 h-2 rounded-full"></div>
-        <div class="bg-green w-2 h-2 rounded-full"></div>
-    </div>
-
-    <!-- User Information -->
- <div class="header flex justify-between items-center my-7 lg:mt-0">
-    <div class="flex items-center gap-4">
-        <div class="bg-mainBg rounded-full p-2 py-1">
-            <i class="fa-solid text-2xl text-gray fa-user"></i>
-        </div>
-        <h2 data-username class="text-dark text-2xl font-medium"></h2>
-    </div>
-    <div class="relative flex justify-center">
-        <i data-editBtn class="fa-solid fa-pen-to-square cursor-pointer"></i>
-        <span class="text-white p-1 px-3 rounded-lg bg-gray absolute top-10 self-center" data-editTooltip>Edit</span>
-    </div>
- </div>
   
-
-  <!-- System Settings -->
-  <form data-formUp action="/home" method="post" class="flex flex-col gap-10 sm:gap-16">
-    <div>
-        <h2 class="text-xl font-medium flex items-center gap-3 text-primary xl:text-2xl"><i class="fa-solid fa-house"></i>Account Settings</h2>
-        <div class="settings-input-wrapper flex w-full flex-col gap-6 mt-7 sm:flex-row sm:justify-stretch xl:gap-24">
-            <div class="flex w-full flex-col gap-6 input-wrapper xl:w-3/5">
-                <div class="input-label flex flex-col gap-2">   
-                   <label for="username">Username</label>
-                   <div class="input-wrapper">
-                    <input readonly data-usernameInput id="username" class="p-2" placeholder="username" name="username">
-                    <i class="bg-edit"></i>
-                   </div>
-                   <p data-useMess class="text-rose hidden mt-1">Username Not Available</p>
-                </div>
-                <div class="input-label flex flex-col gap-2">
-                   <label for="email">Email</label>
-                   <div class="input-wrapper">
-                    <input readonly data-emailInput id="email" class="p-2" placeholder="email" name="email">
-                    <i class="bg-edit"></i>
-                   </div>
-                   <p data-emlMess class="text-rose hidden mt-1">Email Not Available</p>
-                </div>
-            </div>
-
-
-            <div class="flex w-full flex-col gap-6 input-wrapper xl:w-3/5">
-                <div class="input-label flex flex-col gap-2">
-                    <label for="password">Password</label>
-                    <div class="input-wrapper">
-                        <input type="password"  readonly data-passwordInput id="password" placeholder="password" class="p-2" name="password">
-                        <i class="bg-edit"></i>
-                        <i class="pass-eye absolute right-2 top-1/2 cursor-pointer fa-solid fa-eye-slash z-10"></i>
-                    </div>
-                 </div>
-                 <div class="input-label flex-col gap-2 hidden">
-                    <label for="country">id</label>
-                    <div class="input-wrapper">
-                        <input readonly data-idInput id="id" class="p-2" placeholder="id" name="id">
-                        <i class="bg-edit"></i>
-                    </div>
-                 </div>
-            </div>
-        </div>
-      </div>
-
-      <!-- Buttons -->
-      <div class="flex gap-5">
-        <button data-upBtn class="bg-primary text-white p-3 rounded-md up-btn" type="submit">Update</button>
-        <a href="/home" class="bg-white text-primaryDark  shadow-lg p-3 rounded-md cancelBtn" type="reset">Cancel</a>
-      </div>
-  </form>
-</div>
 </body>
 </html>

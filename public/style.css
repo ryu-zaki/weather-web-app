@@ -35,6 +35,7 @@ body.active::before {
     display: inline-block;
     cursor: pointer;
     --barColor: #112C4E;
+    z-index: 25;
   }
   
   .bar1, .bar2, .bar3 {
@@ -61,13 +62,21 @@ body.active::before {
 
 [data-navMenu] {
   transform: translateX(10em);
-  opacity: 1;
+  opacity: 0;
   transition: all .5s;
+  z-index: 25;
 }
 
 [data-navMenu].active {
   transform: translateX(0);
   opacity: 1;
+}
+
+body > .overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0,0,0,0.8);
+  z-index: 20;
 }
 
 [data-navMenu].second {
@@ -1099,4 +1108,137 @@ body.active > .update-modal > div button {
 
 body .settings-con.dark [data-username] {
   color: white;
+}
+
+/* GET STARTED */
+
+html body.get-body::before {
+  content: '';
+  position: absolute;
+  top: -4em;
+  left: 120%;
+  z-index: -1;
+  width: 10em;
+  height: 10em;
+  transform: scale(3);
+  animation: intro .7s forwards;
+  background-color: rgba(47,	105,	254, .3); 
+}
+
+@keyframes intro {
+  to {
+    top: -3em;
+    left: 100%;
+  }
+}
+
+html body.get-body::after {
+  content: '';
+  position: absolute;
+  bottom: -3em;
+  left: -3em;
+  z-index: -1;
+  width: 7em;
+  border-radius: 6em;
+  height: 15em;
+  animation: intro2 .7s forwards;
+  transform: scale(1.2) rotate(-40deg);
+  background-color: rgba(47,	105,	254, .3); 
+}
+
+@keyframes intro2 {
+  to {
+    bottom: 1em;
+    left: 3em;
+    
+  }
+}
+
+
+body .image-section {
+  background: url('/getingStartedImg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 33em;
+  width: 25em;
+}
+
+
+
+body .description-section button {
+  outline: 0;
+  border: 0;
+  opacity: 0;
+  transform: translateY(-2em);
+  animation: title .6s .6s forwards;
+}
+
+body .description-section h1 {
+  opacity: 0;
+  transform: translateY(-2em);
+  animation: title .6s .6s forwards;
+}
+
+@keyframes title {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+body .description-section p::before,
+body .description-section p::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  transform-origin: right;
+  animation: type 3.2s steps(31) .6s forwards;
+}
+
+body .description-section p::before {
+  background-color: white;
+}
+
+body .description-section p::after {
+  height: 100%;
+  width: 2px;
+  background-color: #111;
+  animation: blink .7s infinite,
+  type 3.2s steps(31) .6s forwards;
+}
+
+@keyframes blink {
+  to {
+    opacity: 0;
+  }
+  
+}
+
+
+@keyframes type {
+  to {
+    left: 100%;
+  }
+}
+
+@media only screen and (min-width: 1280px) {
+
+  html body.get-body::before {
+    transform: scale(4);
+  }
+
+  html body.get-body::after {
+    transform: scale(1.7) rotate(-40deg);
+  }
+
+  @keyframes intro2 {
+    to {
+      bottom: 4em;
+      left: 4em;
+      
+    }
+  }
+  
+
 }

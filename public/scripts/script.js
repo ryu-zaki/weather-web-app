@@ -9,13 +9,27 @@
 
 
 const navMenu = document.querySelectorAll('[data-navMenu]');
-
+const overlay = document.querySelector('body > .overlay');
+const menuBtn = document.querySelector('body .containerMenu');
 function myFunction(x) {
   x.classList.toggle("change");
+  overlay.classList.toggle('hidden')
   navMenu.forEach(nav => {
     nav.classList.toggle('active');
   })
 };
+
+window.addEventListener('click', (e) => {
+  if (e.target == overlay) {
+    menuBtn.classList.toggle('change');
+    overlay.classList.toggle('hidden');
+    navMenu.forEach(nav => {
+      nav.classList.toggle('active');
+    })
+
+  }
+
+})
 
 
 
@@ -54,7 +68,6 @@ const mainWrapper = document.querySelector('.main-wrapper');
 const searchBar = document.querySelector('.searchBar');
 const gridSec = document.querySelector('.grid-section');
 const userInfoSec = document.querySelector('body .main-infoSec');
-const settingsCon = document.querySelector('.settings-con');
 const daysList = document.querySelector('.days-list');
 
 
@@ -70,7 +83,6 @@ function myDarkTheme() {
   searchBar.classList.toggle('dark');
   gridSec.classList.toggle('dark');
   userInfoSec.classList.toggle('dark');
-  settingsCon.classList.toggle('dark');
   daysList.classList.toggle('dark');
 
   if (ticksColor == '#000') {
@@ -277,7 +289,7 @@ searchBtn.addEventListener('click', async () => {
         el.innerHTML = `${Math.round(feels_like)}℃`;
       })
 
-      weatherIcon.src = './icons8-partly-cloudy-day-96.png';
+      weatherIcon.src = './imgs/icons8-partly-cloudy-day-96.png';
       cityEl.innerHTML = `${city} City, `;
       countryEl.innerText = country;
       weatherStats.innerHTML = description;
@@ -397,279 +409,4 @@ btns.forEach(btn => {
 
   })
 })
-
-
-
-/* Settings */
-const settingsBtn = document.querySelector('[data-settings]');
-const homeCon = document.querySelector('.homeCon');
-const cancelBtn = document.querySelector('.cancelBtn');
-
-cancelBtn.addEventListener('click', (e) => {
-  e.preventDefault();
-  homeCon.classList.remove('hidden');
-  homeCon.classList.add('flex');
-  settingsCon.classList.add('hidden');
-})
-
-settingsBtn.addEventListener('click', () => {
-  homeCon.classList.add('hidden');
-  settingsCon.classList.remove('hidden');
-})
-
-
-
-/* Settings Functionality */
-const usernameInput = document.querySelector('[data-usernameInput]');
-const emailInput = document.querySelector('[data-emailInput]');
-const passwordInput = document.querySelector('[data-passwordInput]');
-
-async function apiPersonalInfo() {
-  //user information
-  const usernameEl = document.querySelectorAll('[data-username]');
-  
-      usernameEl.forEach(el => {
-        el.innerText = localStorage.getItem('username'); 
-      });
-      usernameInput.value = localStorage.getItem('username');
-      emailInput.value = localStorage.getItem('email');
-      passwordInput.value = localStorage.getItem('password');
 }
-apiPersonalInfo();
-
-/* Editable Feature */
-const allUserDetails = document.querySelectorAll('.settings-input-wrapper > div > div > .input-wrapper > input');
-const editBtn = document.querySelector('[data-editBtn]');
-const inputLabel = document.querySelectorAll('.input-label');
-
-let tog = false;
-editBtn.addEventListener('click', () => {
-  inputLabel.forEach(el => {
-    el.classList.toggle('active');
-  });
-  editBtn.classList.toggle('edit');
-  if (!tog) {
-    tog = true;
-    editInfo()
-  } else {
-    tog = false;
-    lockInfo()
-  }
-  
-})
-
-
-function editInfo() {
-  allUserDetails.forEach(input => {
-    input.removeAttribute('readonly');
-  });
-}
-
-function lockInfo() {
-  allUserDetails.forEach(input => {
-    input.setAttribute('readonly', true);
-  });
-}
-
-let eyeCheck = false;
-const eyeBtn = document.querySelector('.pass-eye');
-const passEl = document.querySelector('#password');
-
-eyeBtn.addEventListener('click', () => {
-  eyeBtn.classList.toggle('fa-eye');
-  if (!eyeCheck) {
-    eyeCheck = true;
-    passEl.type = 'text';
-  } else {
-    eyeCheck = false;
-    passEl.type = 'password';
-  }
-})
-
-/* Signup saved Checker */
-const modal = document.querySelector('body .update-modal');
-const updateForm = document.querySelector('[data-formUp]');
-
-/* Settings modal Variables */
-const infoFit = document.querySelector('[data-infoFit]');
-
-/* Inputs Elements */
-const userErr = document.querySelector('[data-useMess]');
-const emailErr = document.querySelector('[data-emlMess]');
-
-const inputs = updateForm.querySelectorAll('input');
-
-inputs.forEach(ip => {
-  ip.addEventListener('input', () => {
-    updateForm.removeEventListener('submit', updateFunc);
-    const btn = updateForm.querySelector('[data-upBtn]');
-    btn.classList.remove('up-btn');
-
-    updateForm.addEventListener('submit', () => {
-      localStorage.setItem('saved', true);
-    });
-
-    if (ip.id == 'email') {
-      ip.addEventListener('input', () => {
-        localStorage.setItem('emailChangeInput', true)
-      })
-
-    }
-
-    if (ip.id == 'username') {
-      ip.addEventListener('input', () => {
-        localStorage.setItem('userChangeInput', true)
-      })
-    }
-
-    if (ip.id == 'password') {
-      ip.addEventListener('input', () => {
-        localStorage.setItem('passwordChangeInput', true)
-      })
-    }
-  });
-
-
-})
-
-updateForm.addEventListener('submit', updateFunc);
-
-function updateFunc(e) {
-  e.preventDefault();
-}
-
-let errorData = {};
-async function signSaved() {
-  try {
-    const signApi = await fetch('/updateData');
-    const data = await signApi.json();
-
-
-    myErrorSaved();
-    const localSaved = (localStorage.getItem('saved') == 'true');
-
-    function errorDisplayer(errMess, input) {
-       errMess.classList.remove('hidden');
-       input.classList.add('error');
-
-       homeCon.classList.remove('flex');
-       homeCon.classList.add('hidden');
-       
-       settingsCon.classList.remove('hidden');
-       settingsCon.classList.add('flex');
-    };
-
-    function successDisplayer(title, msg) {
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
-
-      infoFit.querySelector('h1').innerText = title;
-      infoFit.querySelector('p').innerText = msg;
-      localStorage.setItem('saved', false);
-
-    }
-
-    /* Variables for checking if the inputs changed */
-    const userChange = (localStorage.getItem('userChangeInput') == "true");
-    const emailChange = (localStorage.getItem('emailChangeInput') == "true");
-    const passChange = (localStorage.getItem('passwordChangeInput') == "true");
-
-    async function myErrorSaved(inputValue, indexName) {
-      try {
-        const api = await fetch('/errorData');
-        const result = await api.json();
-        errorData = result;
-
-        if (errorData.user_name) {
-           usernameInput.value = errorData.user_name;
-        }
-        
-        if (errorData.email) {
-          emailInput.value = errorData.email;
-        }
-      
-      }
-
-      catch (err) {
-        if (err) {
-          throw err;
-        }
-      }
-    }
-
-    if (data.same_user_name == true && localSaved) {
-       errorDisplayer(userErr, usernameInput);
-    } 
-
-    if (data.same_email == true && localSaved) {
-      errorDisplayer(emailErr, emailInput);
-    }
-
-    /* Modal sec */
-    if (data.saved == true && localSaved && data.same_user_name == false && data.same_email == false) {
-      successDisplayer('Saved!', 'your information has been updated.')
-    }
-
-    else if (data.same_user_name == false && localSaved & userChange) {
-       successDisplayer('Username Updated!', 'your username has been updated')
-       localStorage.setItem('userChangeInput', false);
-
-    } else if (data.same_email == false && localSaved && emailChange) {
-      successDisplayer('Email Updated!', 'your email has been updated')
-      localStorage.setItem('emailChangeInput', false);
-    } else if (data.password == true && localSaved && passChange) {
-      successDisplayer('password Updated!', 'your password has been updated');
-      localStorage.setItem('passwordChangeInput', false);
-    } else {
-      localStorage.setItem('userChangeInput', false);
-      localStorage.setItem('emailChangeInput', false);
-      localStorage.setItem('passwordChangeInput', false);
-    }
-  } 
-
-  catch(err) {
-    if (err) throw err;
-
-  }
-}
-signSaved();
-/* Data Update Modal */
-const okBtn = document.querySelectorAll('[data-okBtn]');
-
-okBtn.forEach(btn => {
-  btn.addEventListener('click', () => {
-    modal.classList.remove('flex');
-    modal.classList.add('hidden');
-  })
-});
-
-
-/* Logout Funcitonality */
-const userId = localStorage.getItem('id') ;
-const logoutBtn = document.querySelector('[data-logoutBtn]');
-logoutBtn.addEventListener('click', () => {
-  const logIdentify = confirm('Are you sure you want to logout?');
-  const dataInfo = { logout:  logIdentify};
-
-  /* Sending data to the server */
-  fetch('/logChecker', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify(dataInfo),
-})
-
-  if (dataInfo.logout == true) {
-    // Redirect to a new page
-   window.location.replace("/");
-   localStorage.setItem('darkmode', false);
-   
-   localStorage.clear();
-  }
-})
-}
-
-
-
-

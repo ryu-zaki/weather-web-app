@@ -40,34 +40,6 @@
     </div>
 <script>
 
-async function myAPI() {
-     /* API THAT COMES IN LOGIN PAGE */
-  const api1 = await fetch('/login/data');
-  const result1 = await api1.json();
-
-  /* API THAT COMES IN DATABASE */
-  const api2 = await fetch('/userInfo');
-  const result2 = await api2.json();
-
-  result2.forEach(user => {
-    if (user.user_id == result1.result[0].user_id) {
-
-      /* Store user information into a local_storage */
-      function assign(key, value) {
-        localStorage.setItem(key, value);
-      };
-      assign('username', user.user_name);
-      assign('email', user.email);
-      assign('password', user.password);
-      assign('id', user.user_id);
-    }
-  })
-
-  }
-  myAPI();
-
-
-
     const form = document.querySelector('form');
     const contBtn = document.querySelector('[data-continue]');
     const modalErr = document.querySelector('.modal-wrapper');
@@ -152,7 +124,6 @@ async function myAPI() {
         
         catch(err) {
             console.error(err)
-            contBtn.href = "#";
         }
     }
 
