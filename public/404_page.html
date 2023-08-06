@@ -17,26 +17,7 @@
   const userId = localStorage.getItem('id');
   const homeBtn = document.querySelector('[data-backHome]');
   homeBtn.addEventListener('click', () => {
-    async function myChecker() {
-      try {
-        const api = await fetch('/errorBack');
-        const result = await api.json();
-
-        if (result.logout == true) { 
-          window.location.assign('/home');
-        } else {
-          window.location.assign('/');
-        }
-
-      }
-
-      catch(err) {
-        console.error(err);
-
-      }
-    }
-
-    myChecker();
+      window.location.assign('/home');
   })
 
 </script>
