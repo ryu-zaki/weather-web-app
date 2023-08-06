@@ -5,7 +5,7 @@ const path = require('path');
 const mysql = require('mysql');
 const nodemailer = require('nodemailer');
 const countries = require('./countries');
-const fs = require('fs');
+const session = require('express-session');
 
 const con = mysql.createConnection({
     host: 'sql6.freesqldatabase.com',
@@ -13,6 +13,8 @@ const con = mysql.createConnection({
     password: 'sjfSGyYpM1',
     database: 'sql6636938'
 });;
+
+
 
 async function emailTransport(userEmail, userName) {
   const transport = nodemailer.createTransport({
@@ -48,14 +50,26 @@ async function emailTransport(userEmail, userName) {
 con.connect(err => {
     if (err) console.log(err)
     console.log('connected!');
-})
+});
+
+app.use(session({
+  key: 'ahlieKim2274627',
+  secret: '27e62426',
+  resave: false,
+  saveUninitialized: false,
+}))
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
 app.use(express.static('public'));
+
 app.get('/', (req, res) => {
- res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  console.log(req.session.authorize);
+ if (req.session.authorize == true) {
+ res.sendFile(path.join(__dirname, 'public', 'home.html'));
+ } else {
+ res.sendFile(path.join(__dirname, 'public', 'login_page.html'));
+ }
 });
 
 
@@ -74,7 +88,7 @@ app.post('/signup', async (req, res, next) => {
 
     function myRes(res) {
       c = false;
-      res.sendFile(path.join(__dirname, 'public', 'index.html'));
+      res.sendFile(path.join(__dirname, 'public', 'login_page.html'));
     }
 
     info.forEach(user => {
@@ -106,7 +120,7 @@ app.post('/signup', async (req, res, next) => {
     console.log('database updated!'); 
     signCheck.status = true;
     signCheck.email = true;
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+    res.sendFile(path.join(__dirname, 'public', 'login_page.html'));
     });
   });
 })
@@ -120,7 +134,6 @@ app.get('/signup/checker', (req, res) => {
 
 /* Login */
 let data;
-let authChecker;
 app.post('/userlogin', (req, res, next) => {
   const sql = `SELECT user_id FROM personal_info
                WHERE user_name = ? AND password = ?`;
@@ -137,7 +150,7 @@ app.post('/userlogin', (req, res, next) => {
       'loginfo': req.body,
        result
     };  
-    authChecker = true;
+    req.session.authorize = true;
     res.sendFile(path.join(__dirname, 'public', 'dataPlace.html'));
 });
 });
@@ -151,15 +164,15 @@ app.get('/countries', (req, res) => {
 });
 
 function auth(req, res, next) {
-  req.user = authChecker;
+  
   next();
 }
 
 app.get('/home', auth, (req, res) => {
-  if (req.user == true) {
-    res.sendFile(path.join(__dirname, 'public', 'home.html'))
+  if (req.session.authorize == true) {
+    res.sendFile(path.join(__dirname, 'public', 'home.html'));
   } else {
-    res.sendFile(path.join(__dirname, 'public', '404_page.html'))
+    res.sendFile(path.join(__dirname, 'public', '404_page.html'));
 
   }
 });
@@ -256,14 +269,13 @@ app.get('/gifPic', (req, res) => {
 });
 
 app.post('/logChecker', (req, res) => {
-  if (req.body.logout == true) {
-    authChecker = false;
-  } 
+  req.session.destroy();
+  res.json({logout: true});
 });
 
 app.get('/errorBack', (req, res) => {
-  res.json({login: authChecker});
-})
+  res.json({logout: req.session.authorize});
+});
 
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', '404_page.html'));

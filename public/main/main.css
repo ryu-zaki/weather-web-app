@@ -556,6 +556,12 @@ video {
   }
 }
 
+@media (min-width: 1536px) {
+  .container {
+    max-width: 1536px;
+  }
+}
+
 .fixed {
   position: fixed;
 }
@@ -612,16 +618,12 @@ video {
   top: 75%;
 }
 
-.top-36 {
-  top: 9rem;
-}
-
-.top-48 {
-  top: 12rem;
-}
-
 .top-5 {
   top: 1.25rem;
+}
+
+.top-52 {
+  top: 13rem;
 }
 
 .top-80 {
@@ -668,16 +670,8 @@ video {
   margin-bottom: 0.5rem;
 }
 
-.mb-6 {
-  margin-bottom: 1.5rem;
-}
-
 .mb-7 {
   margin-bottom: 1.75rem;
-}
-
-.mb-8 {
-  margin-bottom: 2rem;
 }
 
 .mr-2 {
@@ -706,10 +700,6 @@ video {
 
 .mt-7 {
   margin-top: 1.75rem;
-}
-
-.mt-8 {
-  margin-top: 2rem;
 }
 
 .block {
@@ -957,10 +947,6 @@ video {
   padding: 1rem;
 }
 
-.p-5 {
-  padding: 1.25rem;
-}
-
 .p-6 {
   padding: 1.5rem;
 }
@@ -1053,6 +1039,10 @@ video {
   padding-top: 5rem;
 }
 
+.text-left {
+  text-align: left;
+}
+
 .text-center {
   text-align: center;
 }
@@ -1065,11 +1055,6 @@ video {
 .text-3xl {
   font-size: 1.875rem;
   line-height: 2.25rem;
-}
-
-.text-4xl {
-  font-size: 2.25rem;
-  line-height: 2.5rem;
 }
 
 .text-5xl {
@@ -1179,7 +1164,7 @@ video {
 :root {
   --gapCal: 2.7em;
   --headWidth: 20em;
-  --mainHeight: 67em;
+  --mainHeight: 50em;
 }
 
 body > * {
@@ -1235,8 +1220,8 @@ body.active::before {
 }
 
 [data-navMenu] {
-  transform: translateX(7em);
-  opacity: 0;
+  transform: translateX(10em);
+  opacity: 1;
   transition: all .5s;
 }
 
@@ -1524,6 +1509,7 @@ body [data-container] {
   transform: translateX(40em);
   transition: all 1s;
   z-index: 1;
+  top: 30%;
 }
 
 body [data-container].active {
@@ -1539,10 +1525,6 @@ body #map {
 }
 
 @media only screen and (min-width: 768px) {
-  :root {
-    --mainHeight: 60em;
-  }
-
   body #map {
     height: 26em;
   }
@@ -1550,7 +1532,7 @@ body #map {
 
 @media only screen and (min-width: 1024px) {
   :root {
-    --mainHeight: 62em;
+    --mainHeight: 100vh;
   }
 
   body .weath-stats {
@@ -1629,6 +1611,10 @@ body .Calendar .days-list > li:hover::before {
   background-color: #eee;
 }
 
+body .main-wrapper.dark .Calendar .days-list > li:not(.inactive):hover {
+  color: #222;
+}
+
 body .Calendar .days-list > li.active {
   color: #fff;
 }
@@ -1646,7 +1632,6 @@ body .Calendar .days-list > li.active::before {
 }
 
 body [data-container].Calendar {
-  top: 20%;
   align-self: center;
 }
 
@@ -1669,14 +1654,15 @@ body .main-wrapper.dark {
 
 @media only screen and (min-width: 550px) {
   :root {
-    --gapCal: 4em;
-    --headWidth: 26em;
+    --gapCal: 3em;
+    --headWidth: 24em;
   }
 }
 
-@media only screen and (min-width: 768px) {
-  body [data-container].Calendar {
-    top: 15%;
+@media only screen and (min-width: 620px) {
+  :root {
+    --gapCal: 5em;
+    --headWidth: 30em;
   }
 }
 
@@ -1685,17 +1671,9 @@ body .main-wrapper.dark {
     --gapCal: 3em;
     --headWidth: 22em;
   }
-
-  body [data-container].Calendar {
-    top: 20%;
-  }
 }
 
 @media only screen and (min-width: 1280px) {
-  body [data-container].Calendar {
-    top: 15%;
-  }
-
   :root {
     --gapCal: 4em;
     --headWidth: 26em;
@@ -2180,7 +2158,7 @@ body .settings-con form div > div > div > .input-label > p {
 /* 404 PAGE  */
 
 .img-bg {
-  background: url('http://localhost:3500/gifPic');
+  background: url('/gifPic');
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -2361,10 +2339,6 @@ body .settings-con.dark [data-username] {
     position: static;
   }
 
-  .md\:top-28 {
-    top: 7rem;
-  }
-
   .md\:mb-10 {
     margin-bottom: 2.5rem;
   }
@@ -2514,10 +2488,6 @@ body .settings-con.dark [data-username] {
 }
 
 @media (min-width: 1024px) {
-  .lg\:top-44 {
-    top: 11rem;
-  }
-
   .lg\:top-56 {
     top: 14rem;
   }
@@ -2532,10 +2502,6 @@ body .settings-con.dark [data-username] {
 
   .lg\:mt-0 {
     margin-top: 0px;
-  }
-
-  .lg\:mt-8 {
-    margin-top: 2rem;
   }
 
   .lg\:block {
@@ -2670,20 +2636,12 @@ body .settings-con.dark [data-username] {
 }
 
 @media (min-width: 1280px) {
-  .xl\:top-40 {
-    top: 10rem;
-  }
-
   .xl\:top-48 {
     top: 12rem;
   }
 
   .xl\:mr-0 {
     margin-right: 0px;
-  }
-
-  .xl\:mt-0 {
-    margin-top: 0px;
   }
 
   .xl\:mt-7 {
@@ -2740,11 +2698,6 @@ body .settings-con.dark [data-username] {
 
   .xl\:p-9 {
     padding: 2.25rem;
-  }
-
-  .xl\:px-10 {
-    padding-left: 2.5rem;
-    padding-right: 2.5rem;
   }
 
   .xl\:px-16 {
@@ -2813,5 +2766,12 @@ body .settings-con.dark [data-username] {
     --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
     --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
     box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  }
+}
+
+@media (min-width: 1536px) {
+  .\32xl\:mx-auto {
+    margin-left: auto;
+    margin-right: auto;
   }
 }

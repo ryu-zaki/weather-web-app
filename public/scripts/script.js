@@ -159,7 +159,7 @@ darkSwitch.addEventListener('click', () => {
   function invokeChart(min, cur, max) {
   
   graph = new Chart(chart, {
-    type: 'line',
+    type: 'bar',
     data: {
       labels: ['Minimun Temp.', 'Current Temp.', 'Maximun Temp.'],
       datasets: [{
@@ -347,41 +347,6 @@ searchBtn.addEventListener('click', async () => {
     })
   })
 
-// Map Visibility
-const map = L.map('map');
-
-L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  maxZoom: 19,
-  attribution: 'Weather App'
-}).addTo(map);
-
-navigator.geolocation.watchPosition(success, error)
-
-let marker, circle, zoomed;
-function success(position) {
-  const lat = position.coords.latitude;
-  const lng = position.coords.longitude;
-
-  map.setView([lat, lng], 13);
-  if (marker) {
-    map.removeLayer(marker);
-    map.removeLayer(circle)
-  }
-  marker = L.marker([lat, lng]).addTo(map);
-  circle = L.circle([lat, lng]).addTo(map);
-
-  if (!zoomed) {
-    zoomed = map.fitBounds(circle.getBounds());
-  }
-}
-
-function error(err) {
-  if (err) throw err;
- 
-}
-
-
-
 //Calendar Functionality
 let currMonth = date.getMonth(), 
     currYear = date.getFullYear();
@@ -458,34 +423,17 @@ settingsBtn.addEventListener('click', () => {
 const usernameInput = document.querySelector('[data-usernameInput]');
 const emailInput = document.querySelector('[data-emailInput]');
 const passwordInput = document.querySelector('[data-passwordInput]');
-const countryInput = document.querySelector('[data-countryInput]');
 
 async function apiPersonalInfo() {
-
-  /* API THAT COMES IN LOGIN PAGE */
-  const api1 = await fetch('/login/data');
-  const result1 = await api1.json();
-
-  /* API THAT COMES IN DATABASE */
-  const api2 = await fetch('/userInfo');
-  const result2 = await api2.json();
-
   //user information
   const usernameEl = document.querySelectorAll('[data-username]');
   
-
-  result2.forEach(user => {
-    if (user.user_id == result1.result[0].user_id) {
       usernameEl.forEach(el => {
-        el.innerText = user.user_name; 
+        el.innerText = localStorage.getItem('username'); 
       });
-      usernameInput.value = user.user_name;
-      emailInput.value = user.email;
-      passwordInput.value = user.password;
-      countryInput.value = country;
-    }
-  })
-
+      usernameInput.value = localStorage.getItem('username');
+      emailInput.value = localStorage.getItem('email');
+      passwordInput.value = localStorage.getItem('password');
 }
 apiPersonalInfo();
 
@@ -697,7 +645,7 @@ okBtn.forEach(btn => {
 
 
 /* Logout Funcitonality */
-
+const userId = localStorage.getItem('id') ;
 const logoutBtn = document.querySelector('[data-logoutBtn]');
 logoutBtn.addEventListener('click', () => {
   const logIdentify = confirm('Are you sure you want to logout?');
@@ -716,6 +664,8 @@ logoutBtn.addEventListener('click', () => {
     // Redirect to a new page
    window.location.replace("/");
    localStorage.setItem('darkmode', false);
+   
+   localStorage.clear();
   }
 })
 }

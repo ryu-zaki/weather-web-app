@@ -5,7 +5,7 @@
 :root {
   --gapCal: 2.7em;
   --headWidth: 20em;
-  --mainHeight: 67em;
+  --mainHeight: 50em;
 }
 
 body > * {
@@ -60,8 +60,8 @@ body.active::before {
   }
 
 [data-navMenu] {
-  transform: translateX(7em);
-  opacity: 0;
+  transform: translateX(10em);
+  opacity: 1;
   transition: all .5s;
 }
 
@@ -351,6 +351,7 @@ body [data-container] {
   transform: translateX(40em);
   transition: all 1s;
   z-index: 1;
+  top: 30%;
 }
 
 body [data-container].active {
@@ -368,10 +369,6 @@ body #map {
 
 @media only screen and (min-width: 768px) {
 
-  :root {
-    --mainHeight: 60em;
-  }
-
   body #map {
     height: 26em;
   }
@@ -381,7 +378,7 @@ body #map {
 @media only screen and (min-width: 1024px) {
 
   :root {
-    --mainHeight: 62em;
+    --mainHeight: 100vh;
   }
 
   body .weath-stats {
@@ -392,6 +389,7 @@ body #map {
 
 
 @media only screen and (min-width: 1280px) {
+
   body #map {
     height: 30em;
   }
@@ -463,6 +461,10 @@ body .Calendar .days-list > li:hover::before {
   background-color: #eee;
 }
 
+body .main-wrapper.dark .Calendar .days-list > li:not(.inactive):hover {
+  color: #222;
+}
+
 body .Calendar .days-list > li.active {
   color: #fff;
 }
@@ -480,7 +482,6 @@ body .Calendar .days-list > li.active::before {
 }
 
 body [data-container].Calendar {
-  top: 20%;
   align-self: center;
 }
 
@@ -503,16 +504,18 @@ body .main-wrapper.dark {
 
 @media only screen and (min-width: 550px) {
   :root {
-    --gapCal: 4em;
-    --headWidth: 26em;
+    --gapCal: 3em;
+    --headWidth: 24em;
   }
 
 }
 
-@media only screen and (min-width: 768px) {
-  body [data-container].Calendar {
-    top: 15%;
+@media only screen and (min-width: 620px) {
+  :root {
+    --gapCal: 5em;
+    --headWidth: 30em;
   }
+
 }
 
 @media only screen and (min-width: 1024px) {
@@ -520,17 +523,9 @@ body .main-wrapper.dark {
     --gapCal: 3em;
     --headWidth: 22em;
   }
-
-  body [data-container].Calendar {
-    top: 20%;
-  }
-
 }
 
 @media only screen and (min-width: 1280px) {
-  body [data-container].Calendar {
-    top: 15%;
-  }
 
   :root {
     --gapCal: 4em;
@@ -1031,7 +1026,7 @@ body .settings-con form div > div > div > .input-label > p {
 
 /* 404 PAGE  */
 .img-bg {
-  background: url('http://localhost:3500/gifPic');
+  background: url('/gifPic');
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
