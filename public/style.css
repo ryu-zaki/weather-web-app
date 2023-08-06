@@ -307,10 +307,10 @@ body [data-weather-stats] {
   height: 10px;
   border-radius: 50%;
   background-color: #112C4E;
-  animation: blink 2s infinite;
+  animation: eyeblink 2s infinite;
 }
 
-@keyframes blink {
+@keyframes eyeblink {
 
   0% {
     transform: scaleY(.3);
