@@ -26,8 +26,15 @@
     <script>
       /* Getting ready */
       const getBtn = document.querySelector('[data-getBtn]');
+      const bodyEl = document.body;
       getBtn.addEventListener('click', () => {
-        window.location.assign('/location')
+        bodyEl.classList.toggle('out-animation');
+        setTimeout(() => {
+          window.location.assign('/location');
+         // bodyEl.classList.toggle('out-animation');
+        }, 600)
+        //
+        
       })
 
     </script>
