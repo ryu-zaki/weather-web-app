@@ -1187,6 +1187,7 @@ html body.get-body.out-animation::after {
   to {
     bottom: -3em;
     left: -3em;
+    opacity: 0;
   }
 }
 
