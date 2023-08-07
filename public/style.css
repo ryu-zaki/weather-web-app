@@ -46,7 +46,7 @@ body.active::before {
     transition: 0.4s;
   }
 
-  .containerMenu.active,
+  .containerMenu.active, 
   .containerMenu.change {
     --barColor: #bbb;
   }
@@ -1126,10 +1126,29 @@ html body.get-body::before {
   background-color: rgba(47,	105,	254, .3); 
 }
 
+html body.get-body.out-animation::before {
+  animation: out .9s forwards;
+}
+
+
 @keyframes intro {
   to {
     top: -3em;
     left: 100%;
+  }
+}
+
+@keyframes out {
+
+  from {
+    top: -3em;
+    left: 100%;
+  }
+
+  to {
+    top: -4em;
+    left: 120%;
+    opacity: 0;
   }
 }
 
@@ -1147,11 +1166,27 @@ html body.get-body::after {
   background-color: rgba(47,	105,	254, .3); 
 }
 
+html body.get-body.out-animation::after {
+  animation: out2 .9s forwards;
+}
+
 @keyframes intro2 {
   to {
     bottom: 1em;
     left: 3em;
     
+  }
+}
+
+@keyframes out2 {
+  from {
+    bottom: 1em;
+    left: 3em;
+  }
+  
+  to {
+    bottom: -3em;
+    left: -3em;
   }
 }
 
@@ -1181,10 +1216,29 @@ body .description-section h1 {
   animation: title .6s .6s forwards;
 }
 
+body.out-animation .description-section h1,
+body.out-animation .description-section p,
+body.out-animation .description-section button {
+  animation: titleOut .9s forwards;
+}
+
+
 @keyframes title {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes titleOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  } 
+  
+  to {
+    opacity: 0;
+    transform: translateY(-2em);
   }
 }
 
@@ -1208,6 +1262,7 @@ body .description-section p::after {
   animation: blink .7s infinite,
   type 3.2s steps(31) .6s forwards;
 }
+
 
 @keyframes blink {
   to {
@@ -1238,6 +1293,19 @@ body .description-section p::after {
       bottom: 4em;
       left: 4em;
       
+    }
+  }
+
+  @keyframes out2 {
+    from {
+      bottom: 4em;
+      left: 4em;
+    }
+    
+    to {
+      bottom: -3em;
+      left: -3em;
+      opacity: 0;
     }
   }
   
