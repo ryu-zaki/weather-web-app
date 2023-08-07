@@ -46,7 +46,8 @@ body.active::before {
     transition: 0.4s;
   }
 
-  .containerMenu.active {
+  .containerMenu.active,
+  .containerMenu.change {
     --barColor: #bbb;
   }
   
